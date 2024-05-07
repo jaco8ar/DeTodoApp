@@ -6,4 +6,6 @@
  *
  */
 module DeTodoApp {
+	requires java.sql;
+	
 }
