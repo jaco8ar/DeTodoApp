@@ -39,10 +39,10 @@ public class AppDBBuilder {
 	}
 	
 	public void buildUserTable() {
-		String createUserTable = "CREATE TABLE IF NOT EXISTS user ("	+
-				"username VARCHAR(30) PRIMARY KEY,"  +
-				"password VARCHAR(50) NOT NULL,"		+
-				"lastlog DATE)";
+		String createUserTable = "CREATE TABLE IF NOT EXISTS appuser ("	+
+				"username VARCHAR(30) PRIMARY KEY, "  +
+				"password VARCHAR(50) NOT NULL, "		+
+				"lastlog DATE);";
 		
 		try (Statement statement = appConnection.createStatement()){
 			statement.executeUpdate(createUserTable);
@@ -54,13 +54,13 @@ public class AppDBBuilder {
 	
 	public void buildNoteListTable() {
 		String createTable = "CREATE TABLE IF NOT EXISTS notelist ("	+
-							"nlcode INT AUTO_INCREMENT PRIMARY KEY," 	+
-							"owner VARCHAR(30)," 		+
-							"nlname VARCHAR(30)," 		+
-							"isrootnl BOOLEAN,"			+
+							"nlcode INT AUTO_INCREMENT PRIMARY KEY, " 	+
+							"owner VARCHAR(30), " 		+
+							"nlname VARCHAR(30), " 		+
+							"isrootnl BOOLEAN, "			+
 							"path VARCHAR(50), " 		+
-							"CONSTRAINT FK_usernl FOREIGN KEY (owner) " +
-							"REFERENCES user(username))";
+							"CONSTRAINT FK_appusernl FOREIGN KEY (owner) " +
+							"REFERENCES appuser(username))";
 		
 		String alterTable = "ALTER TABLE noteList ALTER COLUMN nlcode RESTART WITH 101";
 				
@@ -76,11 +76,11 @@ public class AppDBBuilder {
 	
 	public void buildNoteTable() {
 		String createTable = "CREATE TABLE IF NOT EXISTS note ("	+
-							"title VARCHAR(30) PRIMARY KEY," 	+
-							"createdate DATE NOT NULL," 		+
-							"container INT NOT NULL," 			+
-							"body CLOB," 						+
-							"picfilename VARCHAR(30),"		 	+
+							"title VARCHAR(30) PRIMARY KEY, " 	+
+							"createdate DATE NOT NULL, " 		+
+							"container INT NOT NULL, " 			+
+							"body CLOB, " 						+
+							"picfilename VARCHAR(30), "		 	+
 							"CONSTRAINT FK_notenl FOREIGN KEY (container) " +
 							"REFERENCES notelist(nlcode))";
 				
@@ -94,11 +94,12 @@ public class AppDBBuilder {
 	
 	public void buildRecQuestionTable() {
 		String createTable = "CREATE TABLE IF NOT EXISTS recquestion ("	+
-							"question VARCHAR(60) PRIMARY KEY, " 		+
+							"question VARCHAR(60) NOT NULL, " 		+
 							"answer VARCHAR(60) NOT NULL, "				+
-							"recuser VARCHAR(30) PRIMARY KEY," 			+
+							"recuser VARCHAR(30) NOT NULL, " 			+
 							"CONSTRAINT FK_userrecquestion FOREIGN KEY (recuser) " +
-							"REFERENCES user(username))";
+							"REFERENCES appuser(username), "+
+							"PRIMARY KEY(question, recuser));";
 				
 		try (Statement statement = appConnection.createStatement()){
 			statement.executeUpdate(createTable);
@@ -110,12 +111,13 @@ public class AppDBBuilder {
 	
 	public void buildSavedPasswordTable() {
 		String createTable = "CREATE TABLE IF NOT EXISTS savedpassword ("	+
-							"username VARCHAR(30) PRIMARY KEY, " 	+
-							"site VARCHAR(60) PRIMARY KEY, " 		+
-							"savedby VARCHAR(30) PRIMARY KEY, " 		+
+							"username VARCHAR(30) NOT NULL, " 	+
+							"site VARCHAR(60) NOT NULL, " 		+
+							"savedby VARCHAR(30) NOT NULL, " 		+
 							"password VARCHAR(50) NOT NULL, " +
+							"PRIMARY KEY(username, site, savedby)," +
 							"CONSTRAINT FK_usersavedpw FOREIGN KEY (savedby) " +
-							"REFERENCES user(username))";
+							"REFERENCES appuser(username))";
 				
 		try (Statement statement = appConnection.createStatement()){
 			statement.executeUpdate(createTable);
@@ -133,7 +135,7 @@ public class AppDBBuilder {
 							"datetkn DATE, " 						+
 							"tookby VARCHAR(30), "					+
 							"CONSTRAINT FK_userscs FOREIGN KEY (tookby) " +
-							"REFERENCES user(username))";
+							"REFERENCES appuser(username))";
 				
 		try (Statement statement = appConnection.createStatement()){
 			statement.executeUpdate(createTable);
@@ -150,7 +152,7 @@ public class AppDBBuilder {
 							"size INT NOT NULL, " 				+
 							"genre VARCHAR(60), " 				+
 							"CONSTRAINT FK_usermuslis FOREIGN KEY (creator) " +
-							"REFERENCES user(username))";
+							"REFERENCES appuser(username))";
 				
 		try (Statement statement = appConnection.createStatement()){
 			statement.executeUpdate(createTable);
@@ -192,16 +194,14 @@ public class AppDBBuilder {
 	}
 	
 	public void buildMListXSongTable() {
-		String createTable = "CREATE TABLE IF NOT EXISTS mlistxsong ("+
-							"musiclist VARCHAR(30) PRIMARY KEY, " 	+
-							"songurl VARCHAR(80) PRIMARY KEY , "	+
-							"songname VARCHAR(60) NOT NULL" 		+
-							"CONSTRAINT FK_mlistXmlxs FOREIGN KEY (musiclist) "+
-							"REFERENCES musiclist(name), " +
-							"CONSTRAINT FK_songurlXmlxs FOREIGN KEY (songurl) "+
-							"REFERENCES song(url), " +
-							"CONSTRAINT FK_songnameXmlxs FOREIGN KEY (songname) "+
-							"REFERENCES song(name)) ";
+		String createTable = "CREATE TABLE IF NOT EXISTS mlistxsong (" +
+                "musiclist VARCHAR(30) NOT NULL, " +
+                "songurl VARCHAR(80) NOT NULL, " +
+                "CONSTRAINT FK_mlistXmlxs FOREIGN KEY (musiclist) REFERENCES musiclist(name), " +
+                "CONSTRAINT FK_songurlXmlxs FOREIGN KEY (songurl) REFERENCES song(url), " +
+                "PRIMARY KEY (musiclist, songurl) " +
+                ");";
+
 		try (Statement statement = appConnection.createStatement()){
 			statement.executeUpdate(createTable);
 			System.out.println("MListXSong table succesfully created");
@@ -224,16 +224,17 @@ public class AppDBBuilder {
 	
 	public void buildPendingSongTable() {
 		String createTable = "CREATE TABLE IF NOT EXISTS pendingsong ("+
-							"confisongurl VARCHAR(80) PRIMARY KEY, " +
-							"psl INT PRIMARY KEY, " +
+							"confisongurl VARCHAR(80) NOT NULL, " +
+							"psl INT NOT NULL, " +
 							"coincidence BOOLEAN, " +
+							"PRIMARY KEY(confisongurl, psl), " +
 							"CONSTRAINT FK_pslpendsong FOREIGN KEY (psl) "+
 							"REFERENCES pendingsl(id), " +
 							"CONSTRAINT FK_songpendsong FOREIGN KEY (confisongurl) "+
-							"REFERENCES song(url)) ";
+							"REFERENCES song(url)); ";
 		try (Statement statement = appConnection.createStatement()){
 			statement.executeUpdate(createTable);
-			System.out.println(" table succesfully created");
+			System.out.println("Pending song table succesfully created");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
