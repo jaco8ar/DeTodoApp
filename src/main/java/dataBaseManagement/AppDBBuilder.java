@@ -6,9 +6,8 @@ import java.sql.SQLException;
 
 public class AppDBBuilder {
 	
-	Connection appConnection;
+	final Connection appConnection;
 	
-	public AppDBBuilder() {};
 	
 	public AppDBBuilder(Connection connection) {
 		this.appConnection = connection;
@@ -16,8 +15,8 @@ public class AppDBBuilder {
 	
 	public static void buildAppDB(Connection connection) {
 		
-		AppDBBuilder builder = new AppDBBuilder();
-		builder.setAppConnection(connection);
+		AppDBBuilder builder = new AppDBBuilder(connection);
+		
 		
 		try {
 			builder.buildUserTable();
@@ -247,9 +246,6 @@ public class AppDBBuilder {
 		return this.appConnection;
 	}
 	
-	public void setAppConnection(Connection connection) {
-		this.appConnection = connection;
-	}
 	
 	
 }
