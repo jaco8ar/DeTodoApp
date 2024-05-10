@@ -1,14 +1,23 @@
 package main.java.dataBaseManagement;
 
 import java.sql.Connection;
+import main.java.classes.TargetEnvironment;
 import java.sql.DriverManager;
 
 public class DBconnection {
 	
-	public static Connection getDBConnection(String environment) {
+	public static Connection getDBConnection(TargetEnvironment environment) {
 		
 		Connection connection = null;
-		String url = "jdbc:h2:./data/";
+		
+		String url = null;
+		
+		if (environment == TargetEnvironment.APP) {
+			url = "jdbc:h2:./src/main/resources/appDataBase";
+		} else if (environment == TargetEnvironment.TESTING) {
+			url = "jdbc:h2:./src/test/resources/testDataBase" ;
+		}
+		
 		String root = "sa";
 		String password = "";
 		
