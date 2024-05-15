@@ -10,14 +10,7 @@ public class DBconnection {
 		
 		Connection connection = null;
 		
-		String url = null;
-		
-		if (environment == TargetEnvironment.APP) {
-			url = "jdbc:h2:./src/main/resources/appDataBase";
-		} else if (environment == TargetEnvironment.TESTING) {
-			url = "jdbc:h2:./src/test/resources/testDataBase" ;
-		}
-		
+		String url = environment.environmentLabel;
 		String root = "sa";
 		String password = "";
 		
