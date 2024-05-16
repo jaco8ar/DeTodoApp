@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class AppDBBuilder {
 	
-	final Connection appConnection;
+	private final Connection appConnection;
 	
 	
 	public AppDBBuilder(Connection connection) {
