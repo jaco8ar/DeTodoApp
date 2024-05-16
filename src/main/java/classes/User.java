@@ -3,10 +3,21 @@ package main.java.classes;
 //import java.util.Date;
 import java.sql.Date;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="appuser")
+
 public class User {
-	String username;
-	String password;
-	Date lastlog;
+	@Id 
+	@Column(name="username")
+	private String username;
+	
+	@Column(name="password")
+	private String password;
+	
+	@Column(name="lastlog")
+	private Date lastlog;
 	
 	public User(String username, String password, Date lastlog) {
 		this.username = username;
@@ -18,6 +29,8 @@ public class User {
 		this.username = username;
 		this.password = password;
 	}
+	
+	public User() {}
 	
 	
 	
