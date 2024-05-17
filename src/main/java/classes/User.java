@@ -3,7 +3,10 @@ package main.java.classes;
 //import java.util.Date;
 import java.sql.Date;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name="appuser")
