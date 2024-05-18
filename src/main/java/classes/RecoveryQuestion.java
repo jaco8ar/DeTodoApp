@@ -17,6 +17,14 @@ public class RecoveryQuestion {
 	
 	@Column (name = "answer")
 	private String answer;
+	
+	protected RecoveryQuestion () {}
+	
+	public RecoveryQuestion (String question, String answer, User recoveryUser) {
+		this.questionAndUser.setQuestion(question);
+		this.questionAndUser.setRecoveryUser(recoveryUser);
+		this.answer = answer;
+	}
 		
 	
 	public PrimaryKey getQuestionAndUser() {
