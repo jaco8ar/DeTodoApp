@@ -113,8 +113,7 @@ public class AppDBBuilder {
 							"username VARCHAR(30) NOT NULL, " 	+
 							"site VARCHAR(60) NOT NULL, " 		+
 							"savedby VARCHAR(30) NOT NULL, " 		+
-							"password VARCHAR(50) NOT NULL, " +
-							"initvector VARCHAR(32) NOT NULL" +
+							"password VARCHAR(64) NOT NULL, " +
 							"PRIMARY KEY(username, site, savedby)," +
 							"CONSTRAINT FK_usersavedpw FOREIGN KEY (savedby) " +
 							"REFERENCES appuser(username))";
