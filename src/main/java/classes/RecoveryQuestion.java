@@ -6,7 +6,6 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -47,7 +46,8 @@ static class PrimaryKey {
 	@Column (name = "question")
 	private String question;
 	
-	@Column (name = "recuser")
+	@ManyToOne 
+	@JoinColumn (name = "recuser", referencedColumnName = "username")
 	private User recoveryUser;
 
 	public String getQuestion() {
