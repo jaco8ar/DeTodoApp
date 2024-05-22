@@ -19,6 +19,7 @@ public class AppDBBuilder {
 		
 		
 		try {
+			builder.buildScreenshotPathTable();
 			builder.buildUserTable();
 			builder.buildNoteListTable();
 			builder.buildNoteTable();
@@ -37,11 +38,31 @@ public class AppDBBuilder {
 		}
 	}
 	
+	public void buildScreenshotPathTable() {
+		String createTable = "CREATE TABLE IF NOT EXISTS ScreenshotPath ("	+
+							"screenshotpathid INT AUTO_INCREMENT PRIMARY KEY, " 	+
+							"path VARCHAR(70) NOT NULL)";
+		
+		String alterTable = "ALTER TABLE ScreenshotPath ALTER COLUMN screenshotpathid RESTART WITH 50";
+				
+		try (Statement statement = appConnection.createStatement()){
+			statement.executeUpdate(createTable);
+			System.out.println("Screenshot path table succesfully created");
+			statement.executeUpdate(alterTable);
+			System.out.println("Starting value set for auto-increment column");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void buildUserTable() {
 		String createUserTable = "CREATE TABLE IF NOT EXISTS AppUser ("	+
 				"username VARCHAR(30) PRIMARY KEY, "  +
 				"password VARCHAR(50) NOT NULL, "		+
-				"lastlog DATE);";
+				"lastlog DATE," +
+				"scspath INT, " +
+				"CONSTRAINT FK_appuserscspath FOREIGN KEY (scspath) " +
+				"REFERENCES ScreenshotPath(screenshotpathid))";
 		
 		try (Statement statement = appConnection.createStatement()){
 			statement.executeUpdate(createUserTable);
@@ -133,7 +154,10 @@ public class AppDBBuilder {
 							"path VARCHAR(50) NOT NULL, " 			+
 							"datetkn DATE, " 						+
 							"tookby VARCHAR(30), "					+
-							"CONSTRAINT FK_userscs FOREIGN KEY (tookby) " +
+							"scspath VARCHAR(70) NOT NULL, " 			+
+							"CONSTRAINT FK_userscspath FOREIGN KEY (scspath) " 	+
+							"REFERENCES ScreenshotPath(screenshotpathid), " 	+
+							"CONSTRAINT FK_userscs FOREIGN KEY (tookby) " 		+
 							"REFERENCES AppUser(username))";
 				
 		try (Statement statement = appConnection.createStatement()){

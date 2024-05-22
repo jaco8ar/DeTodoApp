@@ -14,21 +14,10 @@ import org.apache.commons.codec.binary.Hex;
 public class InformalTesting {
 
 	public static void main(String[] args) {
-		
-		String userPassword = "elefantesMarronesloco";
-		
-	
-
-		String toBeEncrypted = "thisWillBeThePassw0rd**";
-		
-		try {
-			String encrypted = Cryptography.encrypt( toBeEncrypted, userPassword);
-			System.out.println("Encrypted password: " + encrypted);
-			String decrypted = Cryptography.decrypt( encrypted, userPassword);
-			System.out.println("Decrypted password: " + decrypted);
+		try (Connection connection = DBconnection.getDBConnection(TargetEnvironment.TESTING)){
+		AppDBBuilder.buildAppDB(connection);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
 		
 		
