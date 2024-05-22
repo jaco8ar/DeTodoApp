@@ -10,7 +10,7 @@ import jakarta.persistence.Embeddable;
 
 
 @Entity 
-@Table (name = "savedpassword")
+@Table (name = "SavedPassword")
 public class SavedPassword {
 	@EmbeddedId
 	private PrimaryKey usernameSiteSavedByPK;

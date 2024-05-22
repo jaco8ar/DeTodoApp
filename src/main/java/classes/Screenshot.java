@@ -9,7 +9,7 @@ import java.sql.Date;
 import jakarta.persistence.Column;
 
 @Entity
-@Table (name = "screenshot")
+@Table (name = "Screenshot")
 public class Screenshot {
 	@Id 
 	private String filename;
