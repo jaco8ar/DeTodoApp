@@ -1,4 +1,4 @@
-package main.java.classes;
+package main.java.crypto;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

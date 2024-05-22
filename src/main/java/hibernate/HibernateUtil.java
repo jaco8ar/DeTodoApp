@@ -1,4 +1,4 @@
-package main.java.classes;
+package main.java.hibernate;
 
 
 
@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+
+import main.java.classes.TargetEnvironment;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory; 

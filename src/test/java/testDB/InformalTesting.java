@@ -2,6 +2,7 @@ package test.java.testDB;
 
 import main.java.dataBaseManagement.DBconnection;
 import main.java.classes.TargetEnvironment;
+import main.java.crypto.Cryptography;
 import main.java.dataBaseManagement.AppDBBuilder;
 
 import java.io.UnsupportedEncodingException;
@@ -9,8 +10,6 @@ import java.sql.Connection;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-
-import main.java.classes.Cryptography;
 
 public class InformalTesting {
 

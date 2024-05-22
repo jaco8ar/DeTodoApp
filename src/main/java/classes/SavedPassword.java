@@ -3,6 +3,7 @@ package main.java.classes;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import main.java.crypto.Cryptography;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
