@@ -1,7 +1,6 @@
 package main.java.classes;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
@@ -10,12 +9,7 @@ import jakarta.persistence.Column;
 
 @Entity
 @Table (name = "Screenshot")
-public class Screenshot {
-	@Id 
-	private String filename;
-
-	@Column (name = "path")
-	private String path;
+public class Screenshot extends Picture {
 	
 	@Column (name = "datetkn")
 	private Date dateTaken;
@@ -24,19 +18,15 @@ public class Screenshot {
 	@JoinColumn (name = "tookby", referencedColumnName = "username")
 	private User tookBy;
 
-	public String getFilename() {
-		return filename;
-	}
+	@ManyToOne
+	@JoinColumn (name = "scspath", referencedColumnName = "screenshotpathid")
+	private ScreenshotPath path;
 
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-
-	public String getPath() {
+	public ScreenshotPath getPath() {
 		return path;
 	}
 
-	public void setPath(String path) {
+	public void setPath(ScreenshotPath path) {
 		this.path = path;
 	}
 

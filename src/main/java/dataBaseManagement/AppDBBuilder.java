@@ -151,7 +151,6 @@ public class AppDBBuilder {
 	public void buildScreenshotTable() {
 		String createTable = "CREATE TABLE IF NOT EXISTS Screenshot ("	+
 							"picfilename VARCHAR(30) PRIMARY KEY, " 	+
-							"path VARCHAR(50) NOT NULL, " 			+
 							"datetkn DATE, " 						+
 							"tookby VARCHAR(30), "					+
 							"scspath VARCHAR(70) NOT NULL, " 			+

@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "NoteList")
-public class NoteList {
+public class NoteList implements PictureFolder{
 	@Id
 	@Column (name = "nlcode")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class NoteList {
 	@Column (name = "path")
 	private String picPath;
 	
-	@OneToMany(mappedBy = "note")
+	@OneToMany(mappedBy = "Note")
 	private List<Note> Notes;
 	
 	

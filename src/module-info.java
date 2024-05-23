@@ -10,4 +10,5 @@ module DeTodoApp {
 	requires org.hibernate.orm.core;
 	requires jakarta.persistence;
 	requires org.apache.commons.codec;
+	requires java.desktop;
 }

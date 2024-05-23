@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Note")
-class Note {
+class Note extends Picture{
 	
 	@Id
 	@Column (name = "title")
@@ -27,9 +27,7 @@ class Note {
 	@Column (name = "body")
 	private String body;
 	
-	@Column (name = "picfilename")
-	private String picFileName;
-
+	
 	
 	
 	
@@ -63,16 +61,7 @@ class Note {
 
 	public void setBody(String body) {
 		this.body = body;
-	}
-
-	public String getPicFileName() {
-		return picFileName;
-	}
-
-	public void setPicFileName(String picFileName) {
-		this.picFileName = picFileName;
-	}
-	
+	}	
 	
 	
 	

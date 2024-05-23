@@ -6,6 +6,8 @@ import java.sql.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +23,10 @@ public class User {
 	
 	@Column(name="lastlog")
 	private Date lastlog;
+	
+	@ManyToOne
+	@JoinColumn (name = "scspath", referencedColumnName = "screenshotpathid")
+	private ScreenshotPath screenshotsPath;
 	
 	public User(String username, String password, Date lastlog) {
 		this.username = username;
@@ -61,6 +67,14 @@ public class User {
 
 	public void setLastlog(Date lastlog) {
 		this.lastlog = lastlog;
+	}
+
+	public ScreenshotPath getScreenshotsPath() {
+		return screenshotsPath;
+	}
+
+	public void setScreenshotsPath(ScreenshotPath screenshotsPath) {
+		this.screenshotsPath = screenshotsPath;
 	}
 	
 	
