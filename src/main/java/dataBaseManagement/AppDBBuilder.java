@@ -169,7 +169,8 @@ public class AppDBBuilder {
 	
 	public void buildMusicListTable() {
 		String createTable = "CREATE TABLE IF NOT EXISTS MusicList ("	+
-							"name VARCHAR(30) PRIMARY KEY, " 	+
+							"id INT AUTO_INCREMENT PRIMARY KEY,  "		+
+							"name VARCHAR(30) NOT NULL, " 		+
 							"creator VARCHAR(30), " 			+
 							"size INT NOT NULL, " 				+
 							"genre VARCHAR(60), " 				+
@@ -217,9 +218,9 @@ public class AppDBBuilder {
 	
 	public void buildSongInListTable() {
 		String createTable = "CREATE TABLE IF NOT EXISTS SongInList (" +
-                "musiclist VARCHAR(30) NOT NULL, " +
+                "musiclist INT NOT NULL, " +
                 "songurl VARCHAR(80) NOT NULL, " +
-                "CONSTRAINT FK_mlistXmlxs FOREIGN KEY (musiclist) REFERENCES MusicList(name), " +
+                "CONSTRAINT FK_mlistXmlxs FOREIGN KEY (musiclist) REFERENCES MusicList(id), " +
                 "CONSTRAINT FK_songurlXmlxs FOREIGN KEY (songurl) REFERENCES Song(url), " +
                 "PRIMARY KEY (musiclist, songurl) " +
                 ");";
