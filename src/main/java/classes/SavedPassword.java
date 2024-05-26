@@ -13,7 +13,7 @@ import jakarta.persistence.Embeddable;
 @Table (name = "SavedPassword")
 public class SavedPassword {
 	@EmbeddedId
-	private PrimaryKey usernameSiteSavedByPK;
+	private UserSiteSavedbyPK usernameSiteSavedByPK;
 	
 	@Column (name = "password")
 	private String password;
@@ -27,7 +27,7 @@ public class SavedPassword {
 		setPassword(password, userPassword);
 	}
 	
-	public PrimaryKey getUsernameSiteSavedByPK() {
+	public UserSiteSavedbyPK getUsernameSiteSavedByPK() {
 		return usernameSiteSavedByPK;
 	}
 	//change
@@ -54,7 +54,7 @@ public class SavedPassword {
 
 
 @Embeddable	
-class PrimaryKey{
+class UserSiteSavedbyPK{
 		@Column (name= "username")
 		private String username;
 		
