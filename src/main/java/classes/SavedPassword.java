@@ -2,9 +2,14 @@ package main.java.classes;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import main.java.crypto.Cryptography;
 import jakarta.persistence.EmbeddedId;
+
+import java.io.Serializable;
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
@@ -51,16 +56,42 @@ public class SavedPassword {
 		this.password = Cryptography.encrypt(password, userPassword);
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(password, usernameSiteSavedByPK);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SavedPassword other = (SavedPassword) obj;
+		return Objects.equals(password, other.password)
+				&& Objects.equals(usernameSiteSavedByPK, other.usernameSiteSavedByPK);
+	}
+
+
+
 
 
 @Embeddable	
-class UserSiteSavedbyPK{
+class UserSiteSavedbyPK implements Serializable{
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 		@Column (name= "username")
 		private String username;
 		
 		@Column (name = "site")
 		private String site;
 		
+		@ManyToOne
 		@JoinColumn (name = "savedby", referencedColumnName = "username")
 		private User savedBy;
 
@@ -87,6 +118,37 @@ class UserSiteSavedbyPK{
 		public void setSavedBy(User savedBy) {
 			this.savedBy = savedBy;
 		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getEnclosingInstance().hashCode();
+			result = prime * result + Objects.hash(savedBy, site, username);
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			UserSiteSavedbyPK other = (UserSiteSavedbyPK) obj;
+			if (!getEnclosingInstance().equals(other.getEnclosingInstance()))
+				return false;
+			return Objects.equals(savedBy, other.savedBy) && Objects.equals(site, other.site)
+					&& Objects.equals(username, other.username);
+		}
+
+		private SavedPassword getEnclosingInstance() {
+			return SavedPassword.this;
+		}
+
+		
+		
 		
 		
 	}

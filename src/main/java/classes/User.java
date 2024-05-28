@@ -2,6 +2,7 @@ package main.java.classes;
 
 //import java.util.Date;
 import java.sql.Date;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -75,6 +76,24 @@ public class User {
 
 	public void setScreenshotsPath(ScreenshotPath screenshotsPath) {
 		this.screenshotsPath = screenshotsPath;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(lastlog, password, screenshotsPath, username);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(lastlog, other.lastlog) && Objects.equals(password, other.password)
+				&& Objects.equals(screenshotsPath, other.screenshotsPath) && Objects.equals(username, other.username);
 	}
 	
 	

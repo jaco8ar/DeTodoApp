@@ -5,6 +5,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 
 @Entity
@@ -28,7 +31,7 @@ public class Song {
 	
 	@ManyToOne 
 	@JoinColumn (name = "gsl", referencedColumnName = "id")
-	private int gslId;
+	private GlobalSL gslId;
 
 	public String getUrl() {
 		return url;
@@ -70,12 +73,31 @@ public class Song {
 		this.colab = colab;
 	}
 
-	public int getGslId() {
+	public GlobalSL getGslId() {
 		return gslId;
 	}
 
-	public void setGslId(int gslId) {
+	public void setGslId(GlobalSL gslId) {
 		this.gslId = gslId;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(album, author, colab, gslId, name, url);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Song other = (Song) obj;
+		return Objects.equals(album, other.album) && Objects.equals(author, other.author)
+				&& Objects.equals(colab, other.colab) && Objects.equals(gslId, other.gslId)
+				&& Objects.equals(name, other.name) && Objects.equals(url, other.url);
 	}
 	
 	
