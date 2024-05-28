@@ -29,7 +29,7 @@ public class MusicList implements SongList {
 	
 	@ManyToOne
 	@JoinColumn (name = "creator", referencedColumnName = "username")
-	private String creator;
+	private User creator;
 
 	@Column (name = "size")
 	private int size;	
@@ -71,11 +71,11 @@ public class MusicList implements SongList {
 		this.name = name;
 	}
 
-	public String getCreator() {
+	public User getCreator() {
 		return creator;
 	}
 
-	public void setCreator(String creator) {
+	public void setCreator(User creator) {
 		this.creator = creator;
 	}
 
