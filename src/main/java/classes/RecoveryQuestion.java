@@ -1,5 +1,8 @@
 package main.java.classes;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
@@ -39,10 +42,17 @@ public class RecoveryQuestion {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
+	
+	
+	
 
 @Embeddable
-static class PrimaryKey {
+static class PrimaryKey implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Column (name = "question")
 	private String question;
 	
@@ -64,6 +74,23 @@ static class PrimaryKey {
 
 	public void setRecoveryUser(User recoveryUser) {
 		this.recoveryUser = recoveryUser;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(question, recoveryUser);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PrimaryKey other = (PrimaryKey) obj;
+		return Objects.equals(question, other.question) && Objects.equals(recoveryUser, other.recoveryUser);
 	}
 	
 	
