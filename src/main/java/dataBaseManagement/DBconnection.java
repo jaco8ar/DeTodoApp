@@ -16,7 +16,7 @@ public class DBconnection {
 		
 		try {
 			
-			connection = DriverManager.getConnection(url + environment, root, password);
+			connection = DriverManager.getConnection(url, root, password);
 			
 		} catch (Exception e) {
 			System.out.println(e);
