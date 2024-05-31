@@ -29,15 +29,12 @@ public class User {
 	@JoinColumn (name = "scspath", referencedColumnName = "screenshotpathid")
 	private ScreenshotPath screenshotsPath;
 	
-	public User(String username, String password, Date lastlog) {
-		this.username = username;
-		this.password = password;
-		this.lastlog = lastlog;
-	}
+	
 	
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
+		this.lastlog = new Date(System.currentTimeMillis());
 	}
 	
 	public User() {}
