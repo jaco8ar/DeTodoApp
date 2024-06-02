@@ -1,7 +1,7 @@
 DeTodoApp
 ===========
 
-DeTodoApp (the name is provisional :p ) is a versatile desktop application designed to provide users with various functionalities including note-taking, password management, screenshot management, and music tracking. Below are the main features of the app:
+DeTodoApp is a versatile desktop application designed to provide users with various functionalities including note-taking, password management, screenshot management, and music tracking. Below are the main features of the app:
 
 Features
 --------
